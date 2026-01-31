@@ -4,14 +4,14 @@ Serveur **MCP .NET** (transport **stdio**) pour **Confluence Cloud (REST v2)** e
 
 ## Fonctionnalités
 
-- Authentification **API Token + Basic Auth** (email:token)
+- Authentification **API Token Scoped + Basic Auth** (email:token)
 - Résolution automatique du **cloudId** via `https://<site>/_edge/tenant_info`
 - Confluence REST v2 via la gateway Atlassian
 - Jira REST v3 via la gateway Atlassian
 
 ## Prérequis
 
-- .NET SDK **8.0+**
+- .NET SDK **10.0+**
 - Un site Atlassian Cloud (ex: `https://example.atlassian.net`)
 - Un token API avec scopes adaptés pour Confluence et/ou Jira
 
@@ -30,8 +30,8 @@ Exemple :
   "Atlassian": {
     "Site": "https://example.atlassian.net",
     "Email": "you@company.com",
-    "ApiTokenConfluence": "your_confluence_token",
-    "ApiTokenJira": "your_jira_token"
+    "ApiTokenConfluence": "your_confluence_token_scoped",
+    "ApiTokenJira": "your_jira_token_scoped"
   }
 }
 ```
