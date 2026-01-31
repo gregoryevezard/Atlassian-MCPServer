@@ -1,0 +1,10 @@
+# secrets
+.env
+*.user
+*.suo
+appsettings.json
+appsettings.Development.json
+
+# build output
+bin/
+obj/
