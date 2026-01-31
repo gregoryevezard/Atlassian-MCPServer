@@ -13,20 +13,20 @@ public sealed class ConfluenceTools
 
     [McpServerTool, Description("List Confluence spaces (REST v2). Optionally filter by comma-separated keys.")]
     public async Task<JsonElement> confluence_list_spaces(
-        [Description("Comma-separated space keys (optional), e.g. GT,HR")] string? keys,
+        [Description("Comma-separated space keys (optional), e.g. ABC,HR")] string? keys,
         [Description("Max number of spaces to return (default 25)")] int limit,
         CancellationToken ct)
         => await _client.ListSpacesAsync(keys, limit <= 0 ? 25 : limit, ct);
 
     [McpServerTool, Description("Get the homepageId for a Confluence space key (REST v2).")]
     public async Task<string> confluence_get_space_homepage_id(
-        [Description("Confluence space key, e.g. GT")] string space_key,
+        [Description("Confluence space key, e.g. ABC")] string space_key,
         CancellationToken ct)
         => await _client.GetHomepageIdAsync(space_key, ct);
 
     [McpServerTool, Description("Get space info for a Confluence space key (REST v2): spaceId + homepageId.")]
     public async Task<JsonElement> confluence_get_space_info(
-        [Description("Confluence space key, e.g. GT")] string space_key,
+        [Description("Confluence space key, e.g. ABC")] string space_key,
         CancellationToken ct)
     {
         var (spaceId, homepageId) = await _client.GetSpaceInfoAsync(space_key, ct);
@@ -58,7 +58,7 @@ public sealed class ConfluenceTools
 
     [McpServerTool, Description("List ONLY root-level folders (type=folder) for a Confluence space. Handles folder/page homepage fallback.")]
     public async Task<JsonElement> confluence_root_folders(
-        [Description("Confluence space key, e.g. GT")] string space_key,
+        [Description("Confluence space key, e.g. ABC")] string space_key,
         CancellationToken ct)
         => await _client.RootFoldersAsync(space_key, ct);
 
@@ -69,7 +69,7 @@ public sealed class ConfluenceTools
         "To reference a Jira issue in body_storage_html, use the Jira macro: " +
         "<ac:structured-macro ac:name=\"jira\"><ac:parameter ac:name=\"key\">KEY</ac:parameter></ac:structured-macro>.")]
     public async Task<JsonElement> confluence_upsert_page(
-        [Description("Confluence space key, e.g. GT")] string space_key,
+        [Description("Confluence space key, e.g. ABC")] string space_key,
         [Description("Parent id for CREATE only. If empty, uses the space homepageId.")] string? parent_id,
         [Description("Page id to UPDATE. If empty => CREATE.")] string? page_id,
         [Description("Page title")] string title,

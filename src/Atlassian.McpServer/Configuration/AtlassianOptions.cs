@@ -3,7 +3,7 @@ namespace Atlassian.McpServer.Configuration;
 public sealed class AtlassianOptions
 {
     /// <summary>
-    /// Base site URL like: https://gregoryevezard.atlassian.net
+    /// Base site URL like: https://example.atlassian.net
     /// Used to resolve cloudId via /_edge/tenant_info
     /// </summary>
     public string Site { get; set; } = "";
