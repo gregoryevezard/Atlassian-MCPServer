@@ -1,29 +1,29 @@
 # Atlassian MCP Server (.NET)
 
-Serveur **MCP .NET** (transport **stdio**) pour **Confluence Cloud (REST v2)** et **Jira Cloud (REST v3)**.
+.NET **MCP server** (transport **stdio**) for **Confluence Cloud (REST v2)** and **Jira Cloud (REST v3)**.
 
-## Fonctionnalités
+## Features
 
-- Authentification **API Token Scoped + Basic Auth** (email:token)
-- Résolution automatique du **cloudId** via `https://<site>/_edge/tenant_info`
-- Confluence REST v2 via la gateway Atlassian
-- Jira REST v3 via la gateway Atlassian
+- **Scoped API Token + Basic Auth** (email:token)
+- Automatic **cloudId** resolution via `https://<site>/_edge/tenant_info`
+- Confluence REST v2 via Atlassian gateway
+- Jira REST v3 via Atlassian gateway
 
-## Prérequis
+## Prerequisites
 
 - .NET SDK **10.0+**
-- Un site Atlassian Cloud (ex: `https://example.atlassian.net`)
-- Un token API avec scopes adaptés pour Confluence et/ou Jira
+- An Atlassian Cloud site (e.g. `https://example.atlassian.net`)
+- An API token with appropriate scopes for Confluence and/or Jira
 
 ## Configuration (appsettings.json)
 
-Copier l’exemple puis renseigner vos valeurs :
+Copy the example and fill in your values:
 
 ```bash
 cp src/Atlassian.McpServer/appsettings.exemple.json src/Atlassian.McpServer/appsettings.json
 ```
 
-Exemple :
+Example:
 
 ```json
 {
@@ -36,9 +36,9 @@ Exemple :
 }
 ```
 
-Notes :
-- **Ne commitez jamais** `appsettings.json` (utilisez `.gitignore`).
-- Si vous n’utilisez qu’un produit (Confluence/Jira), laissez l’autre token vide.
+Notes:
+- **Never commit** `appsettings.json` (use `.gitignore`).
+- If you only use one product (Confluence/Jira), leave the other token empty.
 
 ## Build & Run
 
@@ -48,11 +48,11 @@ dotnet build   src/Atlassian.McpServer/Atlassian.McpServer.csproj -c Release
 dotnet run     --project src/Atlassian.McpServer/Atlassian.McpServer.csproj -c Release
 ```
 
-Le process MCP écoute sur **stdin/stdout**.
+The MCP process listens on **stdin/stdout**.
 
-## Intégration Codex / VS Code (DLL)
+## Codex / VS Code Integration (DLL)
 
-Dans le fichier `config.toml` de Codex, ajoutez un serveur MCP pointant sur la DLL Release :
+In Codex `config.toml`, add an MCP server pointing to the Release DLL:
 
 ```toml
 [mcp_servers.atlassian]
@@ -62,9 +62,9 @@ args = [
 ]
 ```
 
-Puis redémarrez VS Code (ou l’extension Codex) pour recharger la config.
+Then restart VS Code (or the Codex extension) to reload the config.
 
-## Tools exposés
+## Exposed Tools
 
 ### Confluence
 
@@ -75,7 +75,7 @@ Puis redémarrez VS Code (ou l’extension Codex) pour recharger la config.
 - `confluence_get_page(page_id, include_children)`
 - `confluence_root_folders(space_key)`
 - `confluence_upsert_page(space_key, parent_id?, page_id?, title, body_storage_html, status?, version_message?, subtype?)`
-  - **Référence Jira recommandée** : insérer un macro Jira dans `body_storage_html` :
+  - **Recommended Jira reference**: insert a Jira macro in `body_storage_html`:
     ```xml
     <ac:structured-macro ac:name="jira">
       <ac:parameter ac:name="key">KEY</ac:parameter>
@@ -91,7 +91,7 @@ Puis redémarrez VS Code (ou l’extension Codex) pour recharger la config.
 - `jira_create_issue(project_key, issue_type, summary, description?, labels_csv?, parent_issue?)`
 - `jira_delete_issue(issue_id_or_key, delete_subtasks)`
 
-## Resources exposées
+## Exposed Resources
 
 - `confluence://spaces`
 - `confluence://page/{pageId}`
@@ -105,8 +105,8 @@ Puis redémarrez VS Code (ou l’extension Codex) pour recharger la config.
 
 ## Notes
 
-- Les logs sont envoyés sur **stderr** pour ne pas polluer le flux JSON-RPC.
-- Le serveur utilise `ModelContextProtocol` (C#). Si besoin :
+- Logs are sent to **stderr** to avoid polluting the JSON-RPC stream.
+- The server uses `ModelContextProtocol` (C#). If needed:
   ```bash
   dotnet add package ModelContextProtocol --prerelease
   ```
