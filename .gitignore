@@ -4,6 +4,7 @@
 *.suo
 appsettings.json
 appsettings.Development.json
+.DS_Store
 
 # build output
 bin/
